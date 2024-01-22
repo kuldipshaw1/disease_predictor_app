@@ -232,22 +232,41 @@
           <div id="myModal" class="modal">
             <div class="modal-content">
               <span class="close" onclick="closeModal()">&times;</span>
-              <p id="modalMessage"></p>
+              <h3 id="modalMessage1"></h3>
+              <h3 id="modalMessage2"></h3>
+              <h3 id="modalMessage3"></h3>
+              <h4 id="modalMessage4"></h4>
             </div>
           </div>
           
           <script>
             function openModal(responseMessage) {
               var modal = document.getElementById('myModal');
-              var modalMessage = document.getElementById('modalMessage');
-          
-              modalMessage.textContent = responseMessage;
+              var modalMessage1 = document.getElementById('modalMessage1');
+              var modalMessage2 = document.getElementById('modalMessage2');
+              var modalMessage3 = document.getElementById('modalMessage3');
+              var modalMessage4 = document.getElementById('modalMessage4');
+              let n = responseMessage.length;
+
+              modalMessage1.textContent = n >= 1 ? responseMessage[0] : '';
+              modalMessage2.textContent = n >= 2 ? responseMessage[1] : '';
+              modalMessage3.textContent = n >= 3 ? responseMessage[2] : '';
+              modalMessage4.innerHTML = n > 3 ? generateList(responseMessage.slice(3)) : '';
+
               modal.style.display = 'flex';
             }
           
             function closeModal() {
               var modal = document.getElementById('myModal');
               modal.style.display = 'none';
+            }
+            function generateList(items) {
+              let listHtml = '<ul>';
+              for (let i = 0; i < items.length; i++) {
+                listHtml += '<li>' + items[i] + '</li>';
+              }
+              listHtml += '</ul>';
+              return listHtml;
             }
           </script>
           
