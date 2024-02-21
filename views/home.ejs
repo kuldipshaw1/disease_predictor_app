@@ -207,13 +207,17 @@
                 // Serialize form data
                 var valid=validateForm()
                 if (valid) {
-                  var form = document.getElementById('myForm');
-                  var formData = new FormData(form);
+                 
+                  var checkboxes = document.querySelectorAll('input[name="symptoms[]"]:checked');
+                  var selectedSymptoms = Array.from(checkboxes).map(checkbox => checkbox.value);
 
                   // Make an asynchronous request to the server
                   fetch('/submit', {
                     method: 'POST',
-                    body: formData,
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({symptoms: selectedSymptoms})
                   })
                   .then(response => response.json())
                   .then(data => {
